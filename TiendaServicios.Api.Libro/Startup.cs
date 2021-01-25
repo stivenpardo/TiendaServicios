@@ -3,15 +3,20 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
-using TiendaServicios.Api.Autor.Aplication;
-using TiendaServicios.Api.Autor.Persistence;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TiendaServicios.Api.Libro.Aplication;
+using TiendaServicios.Api.Libro.Persistence;
 
-namespace TiendaServicios.Api.Autor
+namespace TiendaServicios.Api.Libro
 {
     public class Startup
     {
@@ -26,14 +31,13 @@ namespace TiendaServicios.Api.Autor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<New>());
-            services.AddDbContext<AuthorContext>(options =>
+            services.AddDbContext<LibraryContext>(opt =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("ConexionDatabase"));
-
+                opt.UseSqlServer(Configuration.GetConnectionString("ConexionDB"));
             });
-            services.AddMediatR(typeof(New.Handler).Assembly);
-            services.AddAutoMapper(typeof(Query.Handler));
 
+            services.AddMediatR(typeof(New.Execute).Assembly);
+            services.AddAutoMapper(typeof(Query.Execute));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

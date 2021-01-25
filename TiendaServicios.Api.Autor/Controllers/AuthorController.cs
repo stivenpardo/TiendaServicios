@@ -26,12 +26,12 @@ namespace TiendaServicios.Api.Autor.Controllers
             return await _mediator.Send(data);
         }
         [HttpGet]
-        public async Task<ActionResult<List<BookAuthor>>> GetAuthors()
+        public async Task<ActionResult<List<AuthorDto>>> GetAuthors()
         {
             return await _mediator.Send(new Query.AuthorList());
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookAuthor>> GetBookAuthor(string id)
+        public async Task<ActionResult<AuthorDto>> GetBookAuthor(string id)
         {
             return await _mediator.Send(new FilterQuery.UnicAuthor { BookAuthorGuid = id });
         }
