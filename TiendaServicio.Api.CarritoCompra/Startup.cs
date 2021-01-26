@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TiendaServicio.Api.CarritoCompra.Aplication;
 using TiendaServicio.Api.CarritoCompra.Persintence;
 
 namespace TiendaServicio.Api.CarritoCompra
@@ -35,8 +36,7 @@ namespace TiendaServicio.Api.CarritoCompra
                 opt.UseSqlServer(Configuration.GetConnectionString("ConexionDB"));
             });
 
-            //services.AddMediatR(typeof(New.Execute).Assembly);
-            //services.AddAutoMapper(typeof(Query.Execute));
+            services.AddMediatR(typeof(New.Handler).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
