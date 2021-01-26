@@ -1,9 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TiendaServicios.Api.Libro.Aplication;
 
@@ -13,7 +10,7 @@ namespace TiendaServicios.Api.Libro.Controllers
     [ApiController]
     public class LibraryMaterials : ControllerBase
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
         public LibraryMaterials(IMediator mediator)
         {
             _mediator = mediator;

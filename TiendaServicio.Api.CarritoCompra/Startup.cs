@@ -1,20 +1,15 @@
-using AutoMapper;
-using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TiendaServicio.Api.CarritoCompra.Aplication;
 using TiendaServicio.Api.CarritoCompra.Persintence;
+using TiendaServicio.Api.CarritoCompra.RemoteInterface;
+using TiendaServicio.Api.CarritoCompra.RemoteService;
 
 namespace TiendaServicio.Api.CarritoCompra
 {
@@ -30,6 +25,7 @@ namespace TiendaServicio.Api.CarritoCompra
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IBookService, BooksService>();
             services.AddControllers();
             services.AddDbContext<CartContext>(opt =>
             {
@@ -37,6 +33,10 @@ namespace TiendaServicio.Api.CarritoCompra
             });
 
             services.AddMediatR(typeof(New.Handler).Assembly);
+            services.AddHttpClient("Books", config => 
+            {
+                config.BaseAddress = new Uri(Configuration["Services:Books"]);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

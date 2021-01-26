@@ -15,7 +15,7 @@ namespace TiendaServicio.Api.CarritoCompra.Controllers
     [ApiController]
     public class ShoppingCartController : ControllerBase
     {
-        private readonly IMediator _mediator ; 
+        private readonly IMediator _mediator;
 
         public ShoppingCartController(IMediator mapper)
         {
@@ -25,6 +25,11 @@ namespace TiendaServicio.Api.CarritoCompra.Controllers
         public async Task<ActionResult<Unit>> Create(New.Execute data)
         {
             return await _mediator.Send(data);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CartDto>> GetCart (int id)
+        {
+            return await _mediator.Send(new Query.Execute { CartSesionId = id });
         }
     }
 }

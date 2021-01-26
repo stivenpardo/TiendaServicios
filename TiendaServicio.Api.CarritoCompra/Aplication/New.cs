@@ -17,7 +17,7 @@ namespace TiendaServicio.Api.CarritoCompra.Aplication
         }
         public class Handler : IRequestHandler<Execute>
         {
-            private CartContext _context;
+            private readonly CartContext _context;
 
             public Handler (CartContext context)
             {
