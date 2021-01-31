@@ -9,9 +9,9 @@ namespace TiendaServicios.Api.Libro.Persistence
 {
     public class LibraryContext : DbContext
     {
+        public LibraryContext() {  }   
         public LibraryContext(DbContextOptions<LibraryContext> options) : base(options) { }
-
-        public DbSet<LibraryMaterials> LibraryMaterials { get; set; }
+        public virtual DbSet<LibraryMaterials> LibraryMaterials { get; set; }
 
     }
 }
